@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AirwatchService } from '../airwatch.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,10 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  public vm = { status: '' };
+
+  constructor(private airWatch: AirwatchService) {
+    this.vm.status = airWatch.status;
+  }
 
 }
