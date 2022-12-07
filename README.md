@@ -11,3 +11,9 @@ Run the following:
 
 Additional information on enviroment setup can be found here:
 [https://capacitorjs.com/docs/getting-started/environment-setup](https://capacitorjs.com/docs/getting-started/environment-setup)
+
+## Debugging
+The web project can be built and copied with:
+`npm run build && npx cap copy`
+
+You can then use XCode to open and run/debug the native project in `ios/App/App.xcworkspace` or in Android Studio in `/android`
