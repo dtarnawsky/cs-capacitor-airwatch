@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Platform } from '@ionic/angular';
 import { AirwatchService } from './airwatch.service';
 
 @Component({
@@ -8,9 +7,7 @@ import { AirwatchService } from './airwatch.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private airWatch: AirwatchService) {
-    this.airWatch.init();
+  constructor(private air: AirwatchService) {
+    this.air.init();
   }
-
-
 }

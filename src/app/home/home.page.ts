@@ -14,4 +14,11 @@ export class HomePage {
     this.vm.status = airWatch.status;
   }
 
+  public async initialize() {
+    this.airWatch.init();
+  }
+
+  public async getUser() {
+    alert( await this.airWatch.getUser());
+  }
 }

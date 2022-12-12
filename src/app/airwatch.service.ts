@@ -23,17 +23,31 @@ export class AirwatchService {
       this.status = 'Airwatch Plugin Unavailable';
       return;
     }
-    (window as any).plugins.airwatch.setSDKEventListener(this.sdkEventCallback);
-    this.status = 'Airwatch Plugin Initialization Started';
+    //(window as any).plugins.airwatch.setSDKEventListener(this.sdkEventCallback);
+    (window as any).plugins.airwatch.setSDKEventListener((event, info) => {
+      console.log('airwatch.sdkEventCallback', event, info);
+      if (event === 'initSuccess') {
+        console.log('Success');
+        this.status = 'Airwatch Plugin Initialized';
+        return;
+      }
+      if (event === 'initFailure') {
+        this.status = 'Airwatch Plugin Failed';
+        return;
+      }
+    });
+    this.status = 'Airwatch Plugin Initialization Started...';
   }
 
-  sdkEventCallback(event, info) {
-    if (event === 'initSuccess') {
-      console.log('Success');
-      this.status = 'Airwatch Plugin Initialized';
-    } else {
-      this.status = 'Airwatch Plugin Failed';
-      console.log('airwatch.sdkEventCallback', event, info);
-    }
+
+  public async getUser(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      (window as any).plugins.airwatch.username((username: string) => {
+        resolve(username);
+      }, (error) => {
+        console.error('failed call to user', error);
+        reject(error);
+      });
+    });
   }
 }
