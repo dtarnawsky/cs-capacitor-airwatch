@@ -127,4 +127,8 @@ You may get the follow error which is not really a failure of the SDK:
 airwatch.sdkEventCallback recievedProfiles {}
 App[11312:2681944] In AWSDKBridge -initialCheckDoneWithError: Initial check failed with error: The operation couldn’t be completed. (AWSDKSetupErrorDomains error 7.)
 ```
+## Enrollment Failure
+You may get the error:
+`Because your device is running Android 10 (or a newer version), Android Enterprise is require for enrollment. Please check with your IT admin about enabling Android Enterprise.`
 
+If this happens you'll need to hardware reset your Android device and set it up a Google account not associated with a MDM or alternatively view this [informative video](https://www.youtube.com/watch?v=hFZFjoX2cGg).
