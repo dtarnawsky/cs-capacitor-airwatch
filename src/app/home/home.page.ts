@@ -29,7 +29,7 @@ export class HomePage {
       const result = await AppConfig.getValue({ key });
       alert(result.value);
     } catch (err: any) {
-      alert(err.errorMessage);
+      alert(err);
     }
   }
 
