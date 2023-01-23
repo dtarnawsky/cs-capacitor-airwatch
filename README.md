@@ -18,7 +18,7 @@ The web project can be built and copied with:
 
 You can then use XCode to open and run/debug the native project in `ios/App/App.xcworkspace` or in Android Studio in `/android`
 
-## Setup with Capacitor
+## iOS Project Configuration
 ### Fixing AppDelegate
 You will need to modify the default `AppDelegate.swift` file to support Airwatch:
 
@@ -26,17 +26,16 @@ Add the following line:
 `import AWSDK`
 
 Then replace this method making sure to replace `[bundleid]` with your bundle identifier:
-```
+```swift
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         let sourceApplication: String = "[bundle-id]";
-        return AWController.clientInstance().handleOpenURL(url, fromApplication: sourceApplication)
-        //return ApplicationDelegateProxy.shared.application(app, open: url, options: options)
+        return AWController.clientInstance().handleOpenURL(url, fromApplication: sourceApplication)        
     }
 ```
 
 ### Setting Application Query Schemes
 On iOS you need to configure the `info.plist` file otherwise you get the error:
-```
+```xml
 Cannot process request as `airwatch` application scheme not allowed
     Ensure that Application's Info.plist contains following information
     ...
@@ -74,11 +73,11 @@ The instructions also say to add a "desired callback scheme" but the `plugin.xml
 Follow the guide at:
 https://github.com/vmware-samples/workspace-ONE-SDK-integration-samples/blob/main/IntegrationGuideForCordova/GettingStarted.md
 
-## Quirks
-### Adding Devices
-- You need to go to WorkSpace One rather than Workspace One UEM to add a device via QR Code
-
-### Init Callback Errors
+## Notes
+- Download `Intelligent Hub` from the App Store or Play Store as part of the device enrollment process
+- For Android, a work profile will be installed and all applications need to be installed through a private play store
+- You cannot run and debug your app with the SDK, it must be installed from Workspace 1 first
+- The application will crash if the device is not enrolled on Android - look at Android Studio's logcat for errors why
 - If you haven't installed hub and registered its profile on your device then your app will never call `setSDKEventListener` so you wont be able to track any errors.
 
 ### Enroll Errors
@@ -114,9 +113,6 @@ Note: This link is a 403 - no information on the doc site.
 ### AirWatch Init always happens
 Your app will launch `hub` even if you do not call 
 
-### Emulators Dont Work
-As you dont seem to be able to install Hub on an iOS simulator you won't be able to test. A real device is needed.
-
 
 ### Error on get User
 The error `The credentials can not be updated until the data store is unlocked` seems to occur on startup if you make a call to get a user (`user`). The user call will fail without an error. This may be caused by the device being associated with the wrong organization.
@@ -127,8 +123,9 @@ You may get the follow error which is not really a failure of the SDK:
 airwatch.sdkEventCallback recievedProfiles {}
 App[11312:2681944] In AWSDKBridge -initialCheckDoneWithError: Initial check failed with error: The operation couldn’t be completed. (AWSDKSetupErrorDomains error 7.)
 ```
+
 ## Enrollment Failure
 You may get the error:
 `Because your device is running Android 10 (or a newer version), Android Enterprise is require for enrollment. Please check with your IT admin about enabling Android Enterprise.`
 
-If this happens you'll need to hardware reset your Android device and set it up a Google account not associated with a MDM or alternatively view this [informative video](https://www.youtube.com/watch?v=hFZFjoX2cGg).
+If this happens you'll likely need support from VMWare to configure Workspace 1 correctly.
