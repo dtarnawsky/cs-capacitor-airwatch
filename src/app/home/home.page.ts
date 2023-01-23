@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AirwatchService } from '../airwatch.service';
-import { Preferences } from '@capacitor/preferences';
+import { AppConfig } from '@capacitor-community/mdm-appconfig';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +14,6 @@ export class HomePage {
 
   constructor(private airWatch: AirwatchService) {
     this.vm.status = airWatch.status;
-    this.initAppConfig();
   }
 
   public async initialize() {
@@ -25,17 +24,14 @@ export class HomePage {
     alert(await this.airWatch.getUser());
   }
 
-  public async getConfig() {
-    const result = await Preferences.get({ key: 'ionic.email' });
-    alert(result.value);
-  }
-  public async get(keyName: string) {
-    const result = await Preferences.get({ key: keyName });
-    alert(result.value);
+  async get(key: string) {
+    try {
+      const result = await AppConfig.getValue({ key });
+      alert(result.value);
+    } catch (err: any) {
+      alert(err.errorMessage);
+    }
   }
 
-  private async initAppConfig() {
-    await Preferences.configure({ group: 'NativeStorage' });
-    this.keys = (await Preferences.keys()).keys;
-  }
+
 }

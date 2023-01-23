@@ -19,6 +19,7 @@
     "@angular/platform-browser": "^14.2.2",
     "@angular/platform-browser-dynamic": "^14.2.2",
     "@angular/router": "^14.2.2",
+    "@capacitor-community/mdm-appconfig": "4.0.2",
     "@capacitor/android": "4.2.0",
     "@capacitor/app": "4.1.1",
     "@capacitor/core": "4.2.0",
@@ -29,7 +30,6 @@
     "@capacitor/status-bar": "4.1.1",
     "@ionic/angular": "6.2.7",
     "airwatch-sdk-plugin": "22.8.0",
-    "cordova-ios-plugin-userdefaults": "1.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"

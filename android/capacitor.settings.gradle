@@ -2,6 +2,9 @@
 include ':capacitor-android'
 project(':capacitor-android').projectDir = new File('../node_modules/@capacitor/android/capacitor')
 
+include ':capacitor-community-mdm-appconfig'
+project(':capacitor-community-mdm-appconfig').projectDir = new File('../node_modules/@capacitor-community/mdm-appconfig/android')
+
 include ':capacitor-app'
 project(':capacitor-app').projectDir = new File('../node_modules/@capacitor/app/android')
 
